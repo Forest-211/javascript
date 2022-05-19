@@ -1,18 +1,16 @@
-// 1=>2=>2=>3=>4
-
-//定义一个创建节点的类
+// 定义一个创建节点的类
 class Node {
     constructor(element) {
-        this.element = element
+        this.element = element;
 
-        this.next = null
+        this.next = null;
     }
 }
-//定义链表类
+// 定义链表类
 class LinkList {
     constructor() {
-        this.length = 0
-        this.head = null
+        this.length = 0;
+        this.head = null;
     }
 
     /**
@@ -21,21 +19,21 @@ class LinkList {
      */
     append(element) {
         // 若链表为空，则设置head，若不为空，将尾节点的next指向element，而后长度 + 1
-        let node = new Node(element)
+        let node = new Node(element);
 
-        let current
+        let current;
         if (!this.head) {
-            this.head = node
+            this.head = node;
         } else {
-            current = this.head
+            current = this.head;
 
             while (current.next) {
-                current = current.next
+                current = current.next;
             }
-            current.next = node
+            current.next = node;
         }
 
-        this.length++
+        this.length++;
     }
 
     /**
@@ -49,28 +47,28 @@ class LinkList {
             2. 不为0 设置previous和next的指向
             3. 长度 + 1
         */
-        let current
-        let previous
-        let index = 0
-        let node = new Node(element)
+        let current;
+        let previous;
+        let index = 0;
+        let node = new Node(element);
 
         if (position >= 0 && position <= this.length) {
             if (position === 0) {
-                node.next = this.head
-                this.head = node
+                node.next = this.head;
+                this.head = node;
             } else {
-                current = this.head
+                current = this.head;
                 while (index < position) {
-                    previous = current
-                    current = current.next
-                    index++
+                    previous = current;
+                    current = current.next;
+                    index++;
                 }
 
-                node.next = current
-                previous.next = node
+                node.next = current;
+                previous.next = node;
             }
 
-            this.length++
+            this.length++;
         }
     }
 
@@ -80,28 +78,28 @@ class LinkList {
      * @returns boolean值 是否删除成功
      */
     removeAt(position) {
-        let current
-        let previous
-        let index = 0
+        let current;
+        let previous;
+        let index = 0;
 
         if (position > -1 && position < this.length) {
-            current = this.head
+            current = this.head;
             if (position === 0) {
-                this.head = current.next
+                this.head = current.next;
             } else {
                 while (index < position) {
-                    previous = current
-                    current = current.next
-                    index++
+                    previous = current;
+                    current = current.next;
+                    index++;
                 }
 
-                previous.next = current.next
+                previous.next = current.next;
             }
 
-            this.length--
-            return true
+            this.length--;
+            return true;
         }
-        return false
+        return false;
     }
 
     /**
@@ -109,8 +107,8 @@ class LinkList {
      * @param {any} element 元素
      */
     remove(element) {
-        let index = this.indexOf(element)
-        this.removeAt(index)
+        let index = this.indexOf(element);
+        this.removeAt(index);
     }
 
     /**
@@ -119,18 +117,18 @@ class LinkList {
      * @returns element所对应的索引值 未找到返回 -1
      */
     indexOf(element) {
-        let index = 0
-        let current = this.head
+        let index = 0;
+        let current = this.head;
 
         while (current) {
             if (current.element === element) {
-                return index
+                return index;
             }
-            current = current.next
+            current = current.next;
 
-            index++
+            index++;
         }
-        return -1
+        return -1;
     }
 
     /**
@@ -138,7 +136,7 @@ class LinkList {
      * @returns boolean值 是否为空
      */
     isEmpty() {
-        return this.length === 0
+        return this.length === 0;
     }
 
     /**
@@ -146,52 +144,51 @@ class LinkList {
      * @returns 链表长度
      */
     size() {
-        return this.length
+        return this.length;
     }
 }
 
-const linkList = new LinkList()
+const linkList = new LinkList();
 
-linkList.append(1)
-linkList.append(2)
-linkList.append(3)
-linkList.append(4)
-linkList.append(5)
+linkList.append(1);
+linkList.append(2);
+linkList.append(3);
+linkList.append(4);
+linkList.append(5);
 
-console.log('index of', linkList.indexOf(2))
-console.log(
-    'Delete the element corresponding to the index',
-    linkList.removeAt(3)
-)
-console.log('link list', linkList)
+console.log('index of', linkList.indexOf(2));
+console.log('Delete the element corresponding to the index', linkList.removeAt(3));
+console.log('link list', linkList);
 
 // leet code 203题
 // 给定一个链表头节点head和一个整数value，请删除链表中所有满足Node.value === value的节点，并且返回链表的头结点。
 
 function removeElements(head, val) {
     if (head == null) {
-        return head
+        return head;
     }
-    head.next = removeElements(head.next, val)
-    return head.val === val ? head.next : head
+    head.next = removeElements(head.next, val);
+    return head.val === val ? head.next : head;
 }
 
-const result = removeElements([1, 2, 6, 3, 4, 5, 6], 6)
-console.log('result:', result)
+const result = removeElements([1, 2, 6, 3, 4, 5, 6], 6);
+console.log('result:', result);
 
 // 哨兵节点
 function removeElement(head, val) {
-    let ele = { next: head }
-    let p = ele
+    let ele = { next: head };
+    let p = ele;
     while (p.next) {
         if (p.next.val === val) {
-            p.next = p.next.next
+            p.next = p.next.next;
         } else {
-            p = p.next
+            p = p.next;
         }
     }
-    return ele.next
+    return ele.next;
 }
 
-const res = removeElement([1, 2, 6, 3, 4, 5, 6], 6)
-console.log('res:', res)
+const res = removeElement([1, 2, 6, 3, 4, 5, 6], 6);
+console.log('res:', res);
+
+export {};
